@@ -4,7 +4,7 @@ module Heroku
       return unless has_git?
       return if git('remote').split("\n").include?(remote)
       return unless File.exists?(".git")
-      git "remote add #{remote} http://code-production.herokuapp.com/#{app}.git"
+      git "remote add #{remote} https://code-production.herokuapp.com/#{app}.git"
       display "Git remote #{remote} added"
     end
   end
@@ -20,7 +20,7 @@ module Heroku
           name, url, method = remote.split(/\s/)
           if url =~ /^git@#{heroku.host}:([\w\d-]+)\.git$/
             remotes[name] = $1
-          elsif url =~ /^http:\/\/code-production.herokuapp.com\/([\w\d-]+)\.git$/
+          elsif url =~ /^https?:\/\/code-production.herokuapp.com\/([\w\d-]+)\.git$/
             remotes[name] = $1
           end
         end
